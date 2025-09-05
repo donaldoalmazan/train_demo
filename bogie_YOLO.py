@@ -5,7 +5,7 @@ from ultralytics import YOLO
 # ----------------------------
 # CONFIG
 # ----------------------------
-VIDEO_PATH = 0   # or 0 for webcam
+VIDEO_PATH = 0   # "train_tracks.mp4" or 0 for webcam
 MODEL_PATH = "model_bogie_tracking.pt"         # custom bogie-trained model based on YOLOv8n (nano)
 BOGIE_CLASS_ID = 0                # There's only one class in this model, "bogie" class (id=1)
 
