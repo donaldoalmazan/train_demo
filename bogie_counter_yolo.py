@@ -7,7 +7,7 @@ MODEL_PATH = "model_bogie_detect.pt" # Custom trained model based on YOLOv8n
 BOGIE_CLASS_ID = 0            # Model only has one class, 'bogie' with ID 0
 
 LINE_X = 300                  # Vertical counting line x-position, 300 for webcam, ~900 for video
-COUNT_DIRECTION = "either"    # "lr" (left->right), "rl" (right->left), or "either"
+#COUNT_DIRECTION = "lr"    # "lr" (left->right), "rl" (right->left)
 LINE_BAND = 8                 # Width of the line band to count within, in pixels
 PERSIST_FRAMES = 3            # frames a track must remain on the new side to confirm a crossing
 
@@ -46,33 +46,26 @@ for r in model.track(
             cx = (x1 + x2) // 2
             cy = (y1 + y2) // 2
 
-            # draw the center for visualization
+            # draw the center
             cv2.circle(annotated, (cx, cy), 4, (0, 255, 255), -1)
-            cv2.putText(annotated, f"id {tid}", (x1, y1-6), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,0), 1)
+            cv2.putText(annotated, f"id {tid}", (x1, y1 - 6),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 0), 1)
 
-            # if we already counted this track, skip
-            if tid in counted_ids:
-                continue
-
-            # check for crossing: previous side vs current side relative to LINE_X
             if tid in prev_x:
                 prev_side = "L" if prev_x[tid] < LINE_X else "R"
                 curr_side = "L" if cx < LINE_X else "R"
 
-                crossed = (prev_side != curr_side)
+                if prev_side != curr_side:
+                    if prev_side == "L" and curr_side == "R":
+                        bogie_count += 1   # left → right = count up
+                        print(f"Bogie {tid} L→R, total={bogie_count}")
+                    elif prev_side == "R" and curr_side == "L":
+                        bogie_count -= 1   # right → left = count down
+                        print(f"Bogie {tid} R→L, total={bogie_count}")
 
-                # optional direction filter
-                if crossed:
-                    if COUNT_DIRECTION == "lr" and not (prev_x[tid] < LINE_X and cx >= LINE_X):
-                        crossed = False
-                    elif COUNT_DIRECTION == "rl" and not (prev_x[tid] > LINE_X and cx <= LINE_X):
-                        crossed = False
-
-                if crossed:
-                    bogie_count += 1
+                    # mark as counted once if you only want a single crossing per bogie
                     counted_ids.add(tid)
 
-            # update history
             prev_x[tid] = cx
 
     # show counter
