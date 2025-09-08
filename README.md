@@ -11,7 +11,10 @@ Navigate to the project folder (~/dev/train_demo/) on the Pi, either on terminal
 ```bash
 python bogie_counter_yolo.py
 ```
-Press ESC to exit the viewer
+Usage Notes:
+- Bogie count is shown on-screen and logged in the console.
+- Make sure webcam is focused by placing an object behind the train to limit autofocus.
+- Press ESC to exit the viewer. 
 
 ## How it works
 
@@ -31,7 +34,6 @@ To install this on a new Raspberry Pi or adapting the code.
    
 2. **Create environment & install dependencies**
 ```bash
-Copy code
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
@@ -49,10 +51,8 @@ Run the bogie counter on a video
 
 Copy code
 python bogie_counter_yolo_crossing.py
+```
 
-Bogie count is shown on-screen and logged in the console
-
-Next step (training)
 
 ## Training a custom model
 
