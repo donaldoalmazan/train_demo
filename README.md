@@ -56,9 +56,9 @@ python bogie_counter_yolo_crossing.py
 
 ## Training a custom model
 
-1. Upload demo video to [Roboflow](https://roboflow.com/), annotate the sample with a single class 'bogie', and export YOLO dataset
-2. Train a YOLOv11 model in [Ultralytics Hub](https://hub.ultralytics.com/home)
-3. Replace MODEL_PATH in the script with your trained weights
+1. Upload demo video to [Roboflow](https://roboflow.com/), annotate the sample with a single class 'bogie', and export YOLO dataset as a zip file
+2. Import the zip to [Ultralytics Hub](https://hub.ultralytics.com/home), train a YOLOv8n model and download the .pt file once complete
+3. Replace MODEL_PATH in the script with your trained weights, .pt file
 4. Re-run the counter for improved results
 
 
