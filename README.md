@@ -56,8 +56,8 @@ python bogie_counter_yolo_crossing.py
 
 ## Training a custom model
 
-1. Upload demo video to Roboflow Annotate, label bogies, and export YOLO dataset
-2. Train a YOLOv11 model in Google Colab using GPU
+1. Upload demo video to [Roboflow](https://roboflow.com/), annotate the sample with a single class 'bogie', and export YOLO dataset
+2. Train a YOLOv11 model in [Ultralytics Hub](https://hub.ultralytics.com/home)
 3. Replace MODEL_PATH in the script with your trained weights
 4. Re-run the counter for improved results
 
