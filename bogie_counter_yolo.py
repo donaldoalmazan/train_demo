@@ -11,8 +11,9 @@ LINE_X = 300                  # Vertical counting line x-position, 300 for webca
 LINE_BAND = 8                 # Width of the line band to count within, in pixels
 PERSIST_FRAMES = 3            # frames a track must remain on the new side to confirm a crossing
 
-IMGSZ =  288                  # Inference size (pixels), 640 is default, try 480 or 320 for faster; must be multiple of 32
-CONF = 0.35                   # Confidence threshold, creates a bounding box when above this value
+IMGSZ =  320      # Size of image (pixels) processed by the model, 640 is default, try 480 or 320 for faster; 
+                  # Must be multiple of 32. Too high reduces the rate of frames processed. Too low reduces details.
+CONF = 0.10                   # Confidence threshold, creates a bounding box when above this value, 0.35 is default
 
 model = YOLO(MODEL_PATH)
 
