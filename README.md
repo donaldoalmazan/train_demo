@@ -11,7 +11,10 @@ Navigate to the project folder (~/dev/train_demo/) on the Pi, either on terminal
 ```bash
 python bogie_counter_yolo.py
 ```
-Press ESC to exit the viewer
+Usage Notes:
+- Bogie count is shown on-screen and logged in the console.
+- Make sure webcam is focused by placing an object behind the train to limit autofocus.
+- Press ESC to exit the viewer. 
 
 ## How it works
 
@@ -31,7 +34,6 @@ To install this on a new Raspberry Pi or adapting the code.
    
 2. **Create environment & install dependencies**
 ```bash
-Copy code
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
@@ -49,16 +51,14 @@ Run the bogie counter on a video
 
 Copy code
 python bogie_counter_yolo_crossing.py
+```
 
-Bogie count is shown on-screen and logged in the console
-
-Next step (training)
 
 ## Training a custom model
 
-1. Upload demo video to Roboflow Annotate, label bogies, and export YOLO dataset
-2. Train a YOLOv11 model in Google Colab using GPU
-3. Replace MODEL_PATH in the script with your trained weights
+1. Upload demo video to [Roboflow](https://roboflow.com/), annotate the sample with a single class 'bogie', and export YOLO dataset as a zip file
+2. Import the zip to [Ultralytics Hub](https://hub.ultralytics.com/home), train a YOLOv8n model and download the .pt file once complete
+3. Replace MODEL_PATH in the script with your trained weights, .pt file
 4. Re-run the counter for improved results
 
 
