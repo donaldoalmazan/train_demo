@@ -1,0 +1,15 @@
+# Ultralytics 🚀 AGPL-3.0 License - https://ultralytics.com/license
+
+# Modified Ultralytics settings for ByteTrack tracker when using mode="track"
+# For documentation and examples see https://docs.ultralytics.com/modes/track/
+# For ByteTrack source code see https://github.com/ifzhang/ByteTrack
+
+tracker_type: bytetrack # tracker type, ['botsort', 'bytetrack']
+track_high_thresh: 0.25   # default often ~0.5; lower spawns/keeps tracks earlier
+track_low_thresh: 0.05    # low gate for lost association
+new_track_thresh: 0.1     # default ~0.7; lower makes new IDs start sooner
+match_thresh: 0.8         # a touch higher can help associate fast movers
+track_buffer: 20          # smaller buffers reduce ID lag; tune with your FPS
+fuse_score: True # Whether to fuse confidence scores with the iou distances before matching
+# min_box_area: 10  # threshold for min box areas(for tracker evaluation, not used for now)
+

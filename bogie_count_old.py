@@ -3,13 +3,13 @@ import cv2
 from ultralytics import YOLO
 
 VIDEO_PATH = 0      # "videos/train_tracks.mp4" or 0 for webcam
-MODEL_PATH = "model_bogie_detect.pt" # Custom trained model based on YOLOv8n
+MODEL_PATH = "model_bogie_yolo8n.pt" # Custom trained model based on YOLOv8n
 BOGIE_CLASS_ID = 0            # Model only has one class, 'bogie' with ID 0
 
 LINE_X = 300                  # Vertical counting line x-position, 300 for webcam, ~900 for video
-#COUNT_DIRECTION = "lr"    # "lr" (left->right), "rl" (right->left)
-LINE_BAND = 8                 # Width of the line band to count within, in pixels
-PERSIST_FRAMES = 3            # frames a track must remain on the new side to confirm a crossing
+#COUNT_DIRECTION = "lr"        # "lr" (left->right), "rl" (right->left)
+#LINE_BAND = 8                 # Width of the line band to count within, in pixels
+#PERSIST_FRAMES = 3            # frames a track must remain on the new side to confirm a crossing
 
 IMGSZ =  320      # Size of image (pixels) processed by the model, 640 is default, try 480 or 320 for faster; 
                   # Must be multiple of 32. Too high reduces the rate of frames processed. Too low reduces details.
@@ -25,7 +25,7 @@ bogie_count = 0
 # NOTE: calling model.track() ONCE keeps the tracker state persistent across frames.
 for r in model.track(
     source=VIDEO_PATH,           # video path or 0 for webcam
-    tracker="bytetrack.yaml",
+    tracker="bytetrack.yaml",    # Default 'bytetrack.yaml', 'bytetrack_fast.yaml' to override default settings
     classes=[BOGIE_CLASS_ID],
     stream=True,
     imgsz=IMGSZ,
@@ -71,7 +71,7 @@ for r in model.track(
 
     # show counter
     cv2.putText(annotated, f"Bogies: {bogie_count}", (20, 40),
-                cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+                cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
 
     cv2.imshow("Bogie counter", annotated)
     if cv2.waitKey(1) & 0xFF == 27:  # Press 'ESC' to quit
